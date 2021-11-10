@@ -1,9 +1,93 @@
 import React from 'react'
+import {Table} from "reactstrap"
+import {Link} from "react-router-dom"
+import {Card,CardImg,CardBody,CardTitle,CardSubtitle,CardText,Button }from "reactstrap"
+import userList from "../userList/userList"
 
-function LoginAdmins() {
+let getDataFromLocalStorage = localStorage.getItem("list")
+let dataFromLocalStorage = JSON.parse(getDataFromLocalStorage)
+
+
+function LoginAdmins(props) {
+    const { userInfo} = props.location.state;
+    const handleLogout = () =>{
+        props.history.push("/")
+    }
     return (
         <div>
-            hai welcome to admins page
+            <div className="d-flex flex-row justify-content-end m-5">
+            <button className="btn btn-success" onClick={handleLogout}>Logout</button>
+            </div>
+            <div>
+            <Link to="/userList">click here to see users</Link>
+            </div>
+            <Card>
+               <div className="img d-flex flex-row m-5">
+                   <div>
+                <CardImg alt=" image " src="https://picsum.photos/318/180" top /><br/>
+                <button className="btn btn-primary m-2" >upload picture</button>
+                <button className="btn btn-danger m-2">Remove picture</button>
+                </div>
+               <div className="m-2">
+            <CardBody>
+                    <CardTitle tag="h5">Name: {userInfo.firstName} {userInfo.lastName} </CardTitle>
+                    <CardSubtitle className="mb-2 " tag="h6">Type of employe:{userInfo.entry}</CardSubtitle>
+                    <CardText>
+                        This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                    </CardText>
+                    
+            </CardBody>
+            </div>
+            </div>
+            </Card>
+            {/* <Table bordered >
+                <thead>
+                    <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                       Entry
+                    </th>
+                    <th>
+                       Action
+                    </th>
+                    </tr>
+                </thead>
+                {dataFromLocalStorage.map((user,index)=>
+                <tbody>
+                    <tr>
+                    <th scope="row">
+                        {index + 1}
+                    </th>
+                    <td>
+                        {user.firstName}
+                    </td>
+                    <td>
+                        {user.lastName}
+                    </td>
+                    <td>
+                        {user.userName}
+                    </td>
+                    <td>
+                        {user.entry}
+                    </td>
+                    <td>
+                        <button className="btn btn-warning" type="button" >delete user</button>
+                    </td>
+                    </tr>
+                    
+                </tbody>)}
+            </Table> */}
         </div>
     )
 }

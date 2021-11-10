@@ -1,15 +1,16 @@
 import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import "../App.css"
-
+console.log(uuidv4())
 function RegitserPage() {
     const [inputs,setinputs] = useState({
+        id:"",
         firstName:"",
         lastName:"",
         userName:"",
         password:"",
         entry:"",
-        
     })
     const [userList,setUserList] = useState([])
     const handleSubmit = (e) => {
@@ -20,6 +21,7 @@ function RegitserPage() {
         }else{
             setUserList((prev)=>[...prev,inputs])
             setinputs({
+                id:uuidv4(),
                 firstName:"",
                 lastName:"",
                 userName:"",
@@ -34,15 +36,10 @@ function RegitserPage() {
         console.log(e.target.value)
 
     }
-    
-    
-    
     useEffect(()=>{
         if ((userList.length > 0 )){
             localStorage.setItem("list", JSON.stringify(userList));
         }
-        
-        
     },[userList])
     
     const fieldValidation = (e) =>{
@@ -57,15 +54,14 @@ function RegitserPage() {
              alert("Registration is succesfull")
         }
     }
-        let x = localStorage.getItem("list")
-        let y = JSON.parse(x)
-        console.log(y)
+    let dataFromLocalStorage = localStorage.getItem("list")
+    let parsingData = JSON.parse(dataFromLocalStorage)
+        // console.log(parsingData)
         let isAdmin = false  
-        if (y === null){
+        if (parsingData === null){
             isAdmin = false
-            
         }else{
-            for (let j of y){
+            for (let j of parsingData){
                 if (j.entry === "admin"){
                     isAdmin = true
                 }
@@ -73,6 +69,8 @@ function RegitserPage() {
         }
     return (
         <div className="bg">
+            <div className="d-flex flex-row justify-content-center">
+            <div className="card">
             <h1 className="head"> Register Here</h1>
            <form onSubmit={handleSubmit}>
               <label className="text-field">First Name</label> <br/>
@@ -97,8 +95,10 @@ function RegitserPage() {
                       <option value="employe" selected>Employe</option>
                  </select></div> }
               <button className="btn btn-primary m-4" type="submit" > Register </button>
-              <Link to="/" className="link link-warning">Cancel</Link>
+              <Link to="/" className="link link-primary">Cancel</Link>
            </form>
+        </div>
+        </div>
         </div>
     )
 }

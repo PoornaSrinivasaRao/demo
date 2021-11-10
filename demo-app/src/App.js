@@ -5,16 +5,18 @@ import HomePage from "./Homepage/Homepage";
 import LoginNonAdmins from "./LoginNonAdmin/LoginNonAdmins";
 import RegisterPage from "./RegisterPage/RegisterPage";
 import LoginAdmins from "./LoginAdmins/LoginAdmins";
+import userList from "./userList/userList";
 function App() {
   return (
     <div className="App">
      
       <Router >
          <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/loginNonAdmins" component={LoginNonAdmins} />
-              <Route path="/loginAdmins" component={LoginAdmins} />
+              <Route exact path="/" component={HomePage}/>
+              <Route path="/register" component={RegisterPage}/>
+              <Route path="/loginNonAdmins" component={LoginNonAdmins}/>
+              <Route path="/loginAdmins" component={LoginAdmins}/>
+              <Route path="/userList" component={userList}/>
           </ Switch>
       </Router>
     </div>
